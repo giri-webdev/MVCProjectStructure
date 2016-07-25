@@ -1,0 +1,95 @@
+﻿
+@using Employee.DataLayer.Models
+@model List<EmployeeModel>
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    WebGrid grid = new WebGrid(Model,canSort:true,defaultSort:"FirstName",rowsPerPage:2,columnNames: new[]{
+    "FirstName","LastName","Age","Salary"
+    });
+}
+
+<div id="info">
+
+</div>
+
+<hr/>
+
+@grid.GetHtml(tableStyle:"table table-striped table-bordered table-condensed", columns: grid.Columns(
+grid.Column("FirstName",header:"First Name"),
+grid.Column("LastName",header:"Last Name"),
+grid.Column("Salary",format:s=>GetFormattedSalary(s.Salary)),
+grid.Column(header:"Edit",format:(item)=>
+{
+    var link = Html.ActionLink("Edit", "Edit", new { id = item.id });
+    return link;
+}),
+grid.Column(header:"Add",format:(item)=>
+{
+    var btn = "<input type='button'  onclick='addInfo(this)' value='save'/>";
+    return new MvcHtmlString(btn);
+}),
+grid.Column(header:"Input",format:(item)=>
+{
+    var txt = "<input type='text'/>";
+    return new MvcHtmlString(txt);
+}),
+grid.Column(header:"Select",format:(item)=>
+{
+    var check = Html.CheckBox("select");
+    return check;
+})
+))
+
+
+@helper GetFormattedSalary(decimal salary)
+{
+    IFormatProvider formatProvider =
+        new System.Globalization.CultureInfo("en-us");
+        <text>@salary.ToString("C", formatProvider)</text>
+}
+
+<br/>
+<br/>
+
+    @*@Html.Action("EmployeeInfo")*@
+
+@*@Html.RenderPartial("~/Views/WebGrid/EmployeeInfo.cshtml")*@
+
+@*@Html.Partial("~/Views/WebGrid/EmployeeInfo.cshtml")*@
+
+
+<script type="text/javascript">
+    function addInfo(btn)
+    {
+        var row = $(btn).parent().parent();
+        var cell = $(row).find('td:eq(5)');
+        var txt = $(cell).find('input');
+        $.ajax({
+            url: '/WebGrid/AddInput',
+            type:'post',
+            data: { input: $(txt).val() },
+            success:function(data)
+            {
+                alert(data.result);
+            },
+            error:function(error)
+            {
+
+            }
+        });
+    }
+
+    $(function () {
+        $.get('/WebGrid/EmployeeInfo', null, function (data) {
+            $('#info').html(data);
+        });
+    });
+</script>
+
+
+
+
+

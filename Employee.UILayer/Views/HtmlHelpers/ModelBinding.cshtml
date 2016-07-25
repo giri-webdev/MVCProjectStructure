@@ -1,0 +1,60 @@
+﻿@model Employee.UILayer.Controllers.HtmlHelperModel
+
+@{
+    ViewBag.Title = "ModelBinding";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>ModelBinding</h2>
+
+@using (Html.BeginForm("ModelBinding", "HtmlHelpers", FormMethod.Post, new { id="formHtml" }))
+{
+   
+    <div class="row">
+        <div class="col-md-2">
+            @Html.LabelFor(x => x.Name)
+        </div>
+        <div class="col-md-10">
+            @Html.TextBoxFor(x => x.Name, new { @class = "form-control" })
+        </div>
+    </div>
+    <br/>
+    <div class="row">
+        <div class="col-md-2">
+            @Html.LabelFor(x => x.Type)
+        </div>
+        <div class="col-md-10">
+            @Html.TextBoxFor(x => x.Type, new { @class = "form-control" })
+        </div>
+    </div>  
+
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <input type="button" onclick="Submit(this)" value="Save" />
+        <input type="button" onclick="Submit(this)" value="Submit" />
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    function Submit(btn)
+    {
+        if($(btn).val() == 'Save')
+        {
+            $('#formHtml').attr('action', "/HtmlHelpers/Save");
+
+            $('#formHtml').submit();
+        }
+        else if ($(btn).val() == 'Submit') {
+            $('#formHtml').attr('action', "/HtmlHelpers/ModelBinding");
+
+            $('#formHtml').submit();
+        }
+
+    }
+
+</script>
+
+

@@ -1,0 +1,48 @@
+﻿@using Employee.UILayer.Helpers
+@{
+    ViewBag.Title = "HelperMethods";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div style="text-align:center;">
+    <h2 style="text-align:center;">Helper Methods Demo</h2>
+    <hr />
+
+    @{
+        string[] colors = { "Red", "Green", "Blue" };
+    }
+
+    @*External helper demo*@
+
+    <h3 style="color:red;">External Helper Demo</h3>
+   
+        @Html.ListColors(colors)
+
+   
+    @*Inline helper demo*@
+
+    <h3 style="color:red;">Internal Helper Demo</h3>
+
+    <div>
+        @Display("Hello World!")
+    </div>
+
+
+
+
+    @helper Display(string info)
+{
+    <h2>
+        @info
+    </h2>
+   
+}
+
+</div>
+
+
+
+
+
+
+
+

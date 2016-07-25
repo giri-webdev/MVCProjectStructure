@@ -1,0 +1,37 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model Employee.UILayer.Controllers.TemplateModel
+
+<h2 style="text-align:center;">Custom Templates Demo</h2>
+
+<div style="padding-top:50px">
+
+    <div class="row">
+        <div class="col-md-2">
+            <label>Price:</label>
+        </div>
+        <div class="col-md-10">
+            @Html.DisplayFor(p => p.Price)
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-2">
+            <label>Date of birth:</label>
+            
+        </div>
+        <div class="col-md-10">
+            @Html.EditorFor(m => m.Date, new { PreviousYearCount = 10, NextYearCount = 10 })
+        </div>
+    </div>
+    
+
+
+   
+
+</div>
+

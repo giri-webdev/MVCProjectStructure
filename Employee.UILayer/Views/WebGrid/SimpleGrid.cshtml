@@ -1,0 +1,14 @@
+﻿
+@using Employee.DataLayer.Models
+@model List<EmployeeModel>
+
+@{
+    ViewBag.Title = "SimpleGrid";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    WebGrid grid = new WebGrid(Model);
+}
+
+@grid.GetHtml()
+
+
